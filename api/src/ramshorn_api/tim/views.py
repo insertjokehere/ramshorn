@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics
 from . import models, serializers
 
@@ -15,4 +17,8 @@ class TankUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.TankSerializer
 
     def get_object(self):
-        return models.Tank.objects.get(id=self.kwargs.tank_id)
+        return get_object_or_404(
+            models.Tank,
+            id=self.kwargs['tank_id'],
+            owner=self.request.user
+        )

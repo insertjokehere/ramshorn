@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  api:
+    build:
+      context: api
+    image: ramshorn_api
+    ports:
+      - 127.0.0.1:8000:8000
+    environment:
+      - "DB_HOST=postgres"
+      - "DB_PORT=2543"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=postgres"
+    volumes:
+      - /home/william/Programming/ramshorn/api/src/ramshorn_api:/src/src/ramshorn_api
+
+  postgres:
+    image: postgres:9.6

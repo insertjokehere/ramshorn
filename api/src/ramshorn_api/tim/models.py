@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from decimal import Decimal
 
 
 class Tank(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, blank=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     width = models.DecimalField(max_digits=13, decimal_places=1, help_text="Width, in cm")
     depth = models.DecimalField(max_digits=13, decimal_places=1, help_text="Depth, in cm")
     length = models.DecimalField(max_digits=13, decimal_places=1, help_text="Length, in cm")
@@ -17,7 +18,7 @@ class Tank(models.Model):
         if self.volume_override is not None:
             return self.volume_override
         else:
-            return self.width * self.length * self.depth
+            return round((self.width * self.length * self.depth) / Decimal('1000.0'), 1)
 
     @volume.setter
     def volume(self, value):
@@ -52,5 +53,5 @@ class FaunaType(Classification):
 
 class Individual(models.Model):
 
-    species = models.ForeignKey(FaunaType)
-    present_in = models.ForeignKey(Tank, related_name="fauna")
+    species = models.ForeignKey(FaunaType, on_delete=models.PROTECT)
+    present_in = models.ForeignKey(Tank, related_name="fauna", on_delete=models.CASCADE)
