@@ -22,10 +22,14 @@ class Tank(models.Model):
 
     @volume.setter
     def volume(self, value):
-        self.volume_override = volume
+        self.volume_override = value
 
 
 class Classification(models.Model):
+
+    UNIQUE_TOGETHER = (
+        ('genus', 'species', 'variant')
+    )
 
     class Meta:
         abstract = True
@@ -44,11 +48,16 @@ class Classification(models.Model):
 
 class FloraType(Classification):
 
+    class Meta:
+        unique_together = Classification.UNIQUE_TOGETHER
+
     present_in = models.ManyToManyField(Tank, related_name="flora")
 
 
 class FaunaType(Classification):
-    pass
+
+    class Meta:
+        unique_together = Classification.UNIQUE_TOGETHER
 
 
 class Individual(models.Model):
