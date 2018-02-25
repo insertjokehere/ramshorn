@@ -9,9 +9,12 @@ services:
       - 127.0.0.1:8000:8000
     environment:
       - "DB_HOST=postgres"
-      - "DB_PORT=2543"
+      - "DB_PORT=5432"
       - "DB_USER=postgres"
       - "DB_PASSWORD=postgres"
+      - "URL_PREFIX=api/"
+    depends_on:
+      - postgres
     volumes:
       - /home/william/Programming/ramshorn/api/src/ramshorn_api:/src/src/ramshorn_api
 

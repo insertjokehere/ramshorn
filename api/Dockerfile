@@ -7,6 +7,10 @@ RUN gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 595E85A6B1B
  && gpg --verify /tini.asc \
  && chmod +x /tini
 
+RUN apt-get update && apt-get install -y \
+		postgresql-client libpq-dev \
+	--no-install-recommends && rm -rf /var/lib/apt/lists/*
+
 ARG INSTALL_MODE=develop
 
 RUN mkdir /src

@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'ramshorn_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config.get('db_name'),
+        'HOST': config.get('db_host'),
+        'PORT': config.get('db_port'),
+        'PASSWORD': config.get('db_password'),
+        'USER': config.get('db_user')
     }
 }
 
@@ -131,3 +135,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+
+URL_PREFIX = config.get("url_prefix", None)
