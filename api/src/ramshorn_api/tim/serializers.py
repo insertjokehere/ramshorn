@@ -41,7 +41,7 @@ class TankSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Tank
-        fields = ('id', 'name', 'width', 'depth', 'length')
+        fields = ('id', 'name', 'width', 'depth', 'length', 'volume')
 
     def create(self, validated_data):
         return models.Tank.objects.create(

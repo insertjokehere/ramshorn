@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import Header from './components/header/header';
+import IndexPage from './components/page/index';
+import TankDetailPage from './components/page/tankdetail';
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import configureStore from './store';
+
+const store = configureStore();
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    render() {
+	return (
+	    <Provider store={ store }>
+		<div>
+		    <Header />
+		    <Router>
+			<div className="container-fluid" style={{ paddingTop: "5px" }}>
+			    <Route path="/" component={ IndexPage } />
+			    <Route path="/tanks/:tankId" component={ TankDetailPage } />
+			</div>
+		    </Router>
+		</div>
+	    </Provider>
+	);
   }
 }
 
