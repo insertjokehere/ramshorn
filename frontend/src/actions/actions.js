@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
 export const UPDATE_TANKS = "UPDATE_TANKS";
 export const UPDATE_TANK = "UPDATE_TANK";
 
@@ -17,6 +19,7 @@ function updateTank(data) {
 
 export function fetch_tanks(){
     return function(dispatch, getState) {
+	dispatch(showLoading())
 	fetch('/api/tank/',
 	      {
 		  headers: {
@@ -29,6 +32,7 @@ export function fetch_tanks(){
 		if (response.status === 200) {
 		    response.json().then(function(data) {
 			dispatch(updateTanks(data))
+			dispatch(hideLoading())
 		    })
 		}
 	    }
@@ -38,6 +42,7 @@ export function fetch_tanks(){
 
 export function fetch_tank(tank_id){
     return function(dispatch, getState) {
+	dispatch(showLoading())
 	fetch('/api/tank/' + tank_id,
 	      {
 		  headers: {
@@ -50,6 +55,7 @@ export function fetch_tank(tank_id){
 		if (response.status === 200) {
 		    response.json().then(function(data) {
 			dispatch(updateTank(data))
+			dispatch(hideLoading())
 		    })
 		}
 	    }

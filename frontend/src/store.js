@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import { loadingBarMiddleware } from 'react-redux-loading-bar'
 
 import reducers from './reducers/reducers';
 

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { UPDATE_TANKS, UPDATE_TANK } from '../actions/actions';
+import { loadingBarReducer } from 'react-redux-loading-bar'
 
 const initialState = {
     tanks: {}
@@ -27,5 +28,6 @@ const api = (state = initialState, action) => {
 };
 
 export default combineReducers({
-    api
+    api: api,
+    loadingBar: loadingBarReducer
 });
