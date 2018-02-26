@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { UPDATE_TANKS } from '../actions/actions';
+import { UPDATE_TANKS, UPDATE_TANK } from '../actions/actions';
 
 const initialState = {
     tanks: {}
@@ -14,6 +14,12 @@ const api = (state = initialState, action) => {
 	    });
 	    return Object.assign({}, state, {
 		tanks: new_tanks
+	    });
+	case UPDATE_TANK:
+	    let new_tank = Object.assign({}, state.tanks);
+	    new_tank[action.tank.id] = action.tank;
+	    return Object.assign({}, state, {
+		tanks: new_tank
 	    });
 	default:
 	    return state;

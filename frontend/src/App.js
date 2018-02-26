@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from './components/header/header';
 import IndexPage from './components/page/index';
@@ -17,15 +17,17 @@ class App extends Component {
     render() {
 	return (
 	    <Provider store={ store }>
-		<div>
-		    <Header />
-		    <Router>
+		<Router>
+		    <div>
+			<Header />
 			<div className="container-fluid" style={{ paddingTop: "5px" }}>
-			    <Route path="/" component={ IndexPage } />
-			    <Route path="/tanks/:tankId" component={ TankDetailPage } />
+			    <Switch>
+				<Route exact path="/" component={ IndexPage } />
+				<Route path="/tanks/:tankId" component={ TankDetailPage } />
+			    </Switch>
 			</div>
-		    </Router>
-		</div>
+		    </div>
+		</Router>
 	    </Provider>
 	);
   }
