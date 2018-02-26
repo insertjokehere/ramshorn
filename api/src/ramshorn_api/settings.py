@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config.get("secret_key", "TEST_SECRET_CHANGE_FOR_PROD!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config.get("debug", True)
+DEBUG = config.get_bool("debug", True)
 
 ALLOWED_HOSTS = config.get("allowed_hosts", [])
 
@@ -125,7 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+URL_PREFIX = config.get("url_prefix", None)
+
+if URL_PREFIX is None:
+    STATIC_URL = '/static/'
+else:
+    STATIC_URL = '/{}static/'.format(URL_PREFIX)
+
+STATIC_ROOT = "/tmp/static"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -135,5 +142,3 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
-
-URL_PREFIX = config.get("url_prefix", None)

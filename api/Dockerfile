@@ -1,5 +1,6 @@
 FROM python:3.6
 
+ENV PYTHONUNBUFFERED=1
 ENV TINI_VERSION v0.17.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
