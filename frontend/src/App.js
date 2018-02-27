@@ -6,6 +6,7 @@ import LoadingBar from 'react-redux-loading-bar'
 import Header from './components/header/header';
 import IndexPage from './components/page/index';
 import TankDetailPage from './components/page/tankdetail';
+import NewTankPage from './components/page/newtankpage';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -21,10 +22,11 @@ class App extends Component {
 		<Router>
 		    <div>
 			<Header />
-			<div className="container-fluid">
+			<div className="container-fluid" style={{ paddingTop: "5px" }}>
 			    <LoadingBar />
 			    <Switch>
 				<Route exact path="/" component={ IndexPage } />
+				<Route exact path="/tank" component={ NewTankPage } />
 				<Route path="/tanks/:tankId" component={ TankDetailPage } />
 			    </Switch>
 			</div>

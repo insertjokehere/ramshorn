@@ -17,6 +17,8 @@ function updateTank(data) {
     }
 }
 
+var csrfCookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
 export function fetch_tanks(){
     return function(dispatch, getState) {
 	dispatch(showLoading())
@@ -29,10 +31,10 @@ export function fetch_tanks(){
 	      }
 	).then(
 	    function(response) {
+		dispatch(hideLoading())
 		if (response.status === 200) {
 		    response.json().then(function(data) {
 			dispatch(updateTanks(data))
-			dispatch(hideLoading())
 		    })
 		}
 	    }
@@ -52,10 +54,36 @@ export function fetch_tank(tank_id){
 	      }
 	).then(
 	    function(response) {
+		dispatch(hideLoading())
 		if (response.status === 200) {
 		    response.json().then(function(data) {
 			dispatch(updateTank(data))
-			dispatch(hideLoading())
+		    })
+		}
+	    }
+	)
+    }
+}
+
+export function create_tank(data) {
+    return function(dispatch, getState) {
+	dispatch(showLoading())
+	return fetch('/api/tank/',
+	      {
+		  method: 'POST',
+		  headers: {
+		      'Content-Type': 'application/json',
+		      'X-CSRFToken': csrfCookieValue
+		  },
+		  credentials: 'same-origin',
+		  body: JSON.stringify(data)
+	      }
+	).then(
+	    function(response) {
+		dispatch(hideLoading())
+		if (response.status === 201) {
+		    return response.json().then(function(data) {
+			return dispatch(updateTank(data))
 		    })
 		}
 	    }

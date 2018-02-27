@@ -8,14 +8,25 @@ class FloraList extends Component {
 
 	this.props.flora.forEach(function (item) {
 	    objs.push(
-		<li>{item.genus} {item.species}</li>
+		<tr>
+		    <td>{item.genus}</td>
+		    <td>{item.species}</td>
+		    <td>{item.variant}</td>
+		</tr>
 	    )
 	});
 	
 	return (
-	    <ul>
-		{ objs }
-	    </ul>
+	    <table className="table">
+		<thead>
+		    <th></th>
+		    <th></th>
+		    <th></th>
+		</thead>
+		<tbody>
+		    { objs }
+		</tbody>
+	    </table>
 	)
     }
 }
