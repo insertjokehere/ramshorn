@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { fetch_tank } from '../../actions/actions';
+
+import FloraList from '../flora/list'
+
 
 class TankDetail extends Component {
 
@@ -12,12 +16,21 @@ class TankDetail extends Component {
     render() {
 	if (this.props.tank === undefined) {
 	    return (
-		<h3>Loading</h3>
+		<div></div>
 	    )
 	} else {
+	    var flora;
+	    if (this.props.tank.flora !== undefined) {
+		flora = this.props.tank.flora;
+	    } else {
+		flora = []
+	    }
+
 	    return (
 		<div>
 		    <h1>{ this.props.tank.name }</h1>
+		    <h2>Flora</h2>
+		    <FloraList flora={ flora } />
 		    { JSON.stringify(this.props) }
 		</div>
 	    )

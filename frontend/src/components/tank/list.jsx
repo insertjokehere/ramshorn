@@ -22,7 +22,7 @@ class TankList extends Component {
 		let item = tanks[key];
 		rows.push(
 		    <tr key="{ item.id }">
-			<td><Link to="/tanks/1">{ item.name }</Link></td>
+			<td><Link to={ "/tanks/" + item.id }>{ item.name }</Link></td>
 			<td>{ item.volume }L</td>
 		    </tr>
 		);
