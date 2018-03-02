@@ -2,3 +2,5 @@ Django>=2.0,<2.1
 djangorestframework>=3.7,<3.8
 drf-yasg
 psycopg2
+requests
+beautifulsoup4
